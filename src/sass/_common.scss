@@ -1,1 +1,73 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
+body {
+  background-image: linear-gradient(
+    to right,
+    #743232 0%,
+    #bfc1bb 19%,
+    #57c6e1 42%,
+    #501ead 79%,
+    #102e36 100%
+  );
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.scroll__top {
+  position: fixed;
+  width: 60px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  bottom: 15px;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #803eb2f2;
+  border-radius: 10px;
+  font-size: 35px;
+  cursor: pointer;
+  transition: all 350ms ease-in-out;
+}
+.search__input {
+  padding-left: 10px;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-right: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  display: flex;
+  outline: none;
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: 0.02em;
+  color: #3e56b2;
+  width: 300px;
+  height: 40px;
+  flex-direction: row;
+  align-content: center;
+}
+
+.search__button {
+  width: 50px;
+  height: 40px;
+  cursor: pointer;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-left: none;
+  display: flex;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  display: flex;
+  background-color: rgb(255, 94, 0);
+
+  &:hover,
+  &:focus {
+    background-color: #ce1370;
+  }
+}

@@ -1,21 +1,21 @@
-<div class="gallery">
-  <!-- Obraz karty -->
-  <div class="photo-card">
-    <img src="" alt="" loading="lazy" />
-    <div class="info">
-      <p class="info-item">
-        <b>Likes</b>
-      </p>
-      <p class="info-item">
-        <b>Views</b>
-      </p>
-      <p class="info-item">
-        <b>Comments</b>
-      </p>
-      <p class="info-item">
-        <b>Downloads</b>
-      </p>
+<header class="header">
+  <form class="search__form" id="search-form">
+    <div class="wrapper">
+      <input
+        class="search__input"
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button class="search__button" type="submit">Search</button>
     </div>
+  </form>
+</header>
+<main>
+  <div class="collection">
+    <div class="gallery"></div>
+    <button type="button" class="load__more is-hidden">Load more</button>
   </div>
-</div>
-<button type="button" class="load-more">Load more</button>
+  <a class="scroll__top">Top</a>
+</main>

@@ -1,24 +1,25 @@
 import axios from 'axios';
-import { perPage, pageInitialValue } from './index.js';
-export { loadPhoto } from './index.js';
-export { inputSearchQuery, pageInitialValue } from './index.js';
-const URL_BASE = 'https://pixabay.com/api/';
-const KEY_API = '39346761-8b01f68fe4eefe6876f196ed9';
-const paramObjectTasks = {
-  key: KEY_API,
-  q: inputSearchQuery.value,
-  image_type: 'photo',
-  orientation: 'horizontal',
-  safesearch: true,
-  per_page: perPage,
-  page: pageInitialValue,
-};
+export { fetchPhoto, perPageLimit };
+const perPageLimit = 40;
 
-const loadPhoto = async (inputSearchQuery, pageInitialValue) => {
+const KEY_API = '39346761-8b01f68fe4eefe6876f196ed9';
+const URL_BASE = 'https://pixabay.com/api/';
+
+const fetchPhoto = async (searchQueryFetch, pageToFetch) => {
   try {
-    const photoData = await axios.get(`${URL_BASE}/?${paramObjectTasks}`);
-    return photoData;
+    const photoData = await axios.get(URL_BASE, {
+      paramObjectTasks: {
+        key: KEY_API,
+        q: searchQueryFetch,
+        image_type: 'photo',
+        orientation: 'horizontal',
+        safesearch: true,
+        per_page: perPageLimit,
+        page: pageToFetch,
+      },
+    });
+    return data;
   } catch (error) {
-    throw new Error(response.status);
+    console.error(error);
   }
 };
