@@ -1,16 +1,15 @@
 import axios from 'axios';
-export { fetchPhoto, perPageLimit };
+export { fetchImages, perPageLimit };
 const perPageLimit = 40;
-
 const KEY_API = '39346761-8b01f68fe4eefe6876f196ed9';
 const URL_BASE = 'https://pixabay.com/api/';
 
-const fetchPhoto = async (searchQueryFetch, pageToFetch) => {
+const fetchImages = async (searchQuery, pageToFetch) => {
   try {
-    const photoData = await axios.get(URL_BASE, {
-      paramObjectTasks: {
+    const { data } = await axios.get(URL_BASE, {
+      params: {
         key: KEY_API,
-        q: searchQueryFetch,
+        q: searchQuery,
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,

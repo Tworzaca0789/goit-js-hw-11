@@ -5,7 +5,7 @@ import 'notiflix/dist/notiflix-3.2.6.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import throttle from 'lodash.throttle';
-import { fetchPhoto, perPageLimit } from './js/search-api';
+import { fetchImages, perPageLimit } from './js/search-api';
 
 const form = document.querySelector('#search-form');
 const inputSearchQuery = document.querySelector('input[name = "searchQuery"]');
@@ -15,7 +15,7 @@ const scrollToTop = document.querySelector('.scroll__top');
 
 let inputValue = null;
 //Początkowa wartość parametru page
-let pageInitialValue = 1;
+let pageValue = 1;
 let numberOfPage = 0;
 let gallerySimpleLightbox = new SimpleLightbox('.photo-card a', {
   captions: true,
@@ -25,7 +25,7 @@ let gallerySimpleLightbox = new SimpleLightbox('.photo-card a', {
 });
 async function onSubmit(e) {
   e.preventDefault();
-  pageInitialValue = 1;
+  pageValue = 1;
   cleanGallery(gallery);
   inputValue = inputSearchQuery.value;
   if (inputValue === '') {
@@ -34,30 +34,30 @@ async function onSubmit(e) {
   }
   e.currentTarget.reset();
   try {
-    await loadingPictures(pageInitialValue, inputValue);
+    await loadingImages(pageValue, inputValue);
   } catch {
     onError;
   }
 }
 
-async function loadingPictures(page, value) {
+async function loadingImages(page, value) {
   try {
     Loading.arrows('Loading data, please wait...');
-    const pictures = await fetchPhoto(value, page);
-    const templateReply = pictures.hits;
-    numberOfPage = Math.ceil(pictures.totalHits / perPageLimit);
-    if (pictures.totalHits === 0) {
+    const images = await fetchImages(value, page);
+    const templateReply = images.hits;
+    numberOfPage = Math.ceil(images.totalHits / perPageLimit);
+    if (images.totalHits === 0) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
       return;
     }
-    if (pictures.totalHits !== 0) {
-      Notify.success(`Hooray! We found ${pictures.totalHits} images.`);
+    if (images.totalHits !== 0) {
+      Notify.success(`Hooray! We found ${images.totalHits} images.`);
       pictureCardMarker(templateReply);
       gallerySimpleLightbox.refresh();
     }
-    if (pictures.totalHits > perPageLimit) {
+    if (images.totalHits > perPageLimit) {
       window.addEventListener('scroll', throttle(onScroll, 1000));
     }
   } catch {
@@ -73,16 +73,16 @@ function onScroll() {
 }
 
 async function onLoadMore() {
-  if (pageInitialValue === numberOfPage) {
+  if (pageValue === numberOfPage) {
     Notify.info("We're sorry, but you've reached the end of search results.");
     window.removeEventListener('scroll', onScroll);
     return;
   } else {
     Loading.arrows('Loading data, please wait...');
-    pageInitialValue += 1;
+    pageValue += 1;
     try {
-      const pictures = await fetchPhoto(inputValue, pageInitialValue);
-      const templateReply = pictures.hits;
+      const pictures = await fetchPhoto(inputValue, pageValue);
+      const templateReply = images.hits;
       pictureCardMarker(templateReply);
       gallerySimpleLightbox.refresh();
     } catch {
