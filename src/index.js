@@ -58,7 +58,7 @@ async function loadingImages(page, value) {
       gallerySimpleLightbox.refresh();
     }
     if (images.totalHits > perPageLimit) {
-      window.addEventListener('scroll', throttle(onScroll, 1000));
+      window.addEventListener('scroll', throttle(onScroll, 2000));
     }
   } catch {
     onError;
@@ -81,7 +81,7 @@ async function onLoadMore() {
     Loading.arrows('Loading data, please wait...');
     pageValue += 1;
     try {
-      const pictures = await fetchPhoto(inputValue, pageValue);
+      const images = await fetchImages(inputValue, pageValue);
       const templateReply = images.hits;
       pictureCardMarker(templateReply);
       gallerySimpleLightbox.refresh();
