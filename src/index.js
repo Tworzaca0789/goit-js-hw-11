@@ -4,7 +4,7 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 import { fetchImages, perPageLimit } from './js/search-api';
 
 const form = document.querySelector('#search-form');
@@ -58,7 +58,7 @@ async function loadingImages(page, value) {
       gallerySimpleLightbox.refresh();
     }
     if (images.totalHits > perPageLimit) {
-      window.addEventListener('scroll', throttle(onScroll, 2000));
+      window.addEventListener('scroll', debounce(onScroll, 3000));
     }
   } catch {
     onError;
